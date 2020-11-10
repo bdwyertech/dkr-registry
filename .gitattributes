@@ -5,3 +5,4 @@
 docker-manifest/* eol=lf
 hooks/* eol=lf
 *.sh eol=lf
+*.yml eol=lf
