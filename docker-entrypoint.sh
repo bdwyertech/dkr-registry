@@ -27,4 +27,4 @@ fi
 #     *) exec "$@" ;;
 # esac
 
-eval "$@"
+exec $@
