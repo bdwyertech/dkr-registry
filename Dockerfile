@@ -7,7 +7,7 @@ FROM alpine:latest
 
 COPY --from=registry /go/bin/registry /usr/local/bin/.
 
-RUN apk add bash openssl stunnel
+RUN apk add bash openssl
 
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 ENTRYPOINT ["docker-entrypoint.sh"]

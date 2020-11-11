@@ -15,9 +15,6 @@ if [ -n "$SETUP_SSL" ]; then
     export REGISTRY_HTTP_TLS_KEY='/etc/docker/registry/ssl/key.pem'
 fi
 
-# if [ -n "$SETUP_REDIS_STUNNEL" ]; then
-# fi
-
 # case "$1" in
 #     *.yaml|*.yml) set -- registry serve "$@" ;;
 #     serve|garbage-collect|help|-*) set -- registry "$@" ;;
