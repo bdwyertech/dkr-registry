@@ -1,4 +1,4 @@
-FROM golang:1.15-alpine as registry
+FROM golang:1.16-alpine as registry
 
 RUN apk add git \
 	&& go get github.com/docker/distribution/cmd/registry
