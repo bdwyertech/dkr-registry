@@ -1,11 +1,25 @@
 FROM golang:1.17-alpine as registry
 
-RUN apk add git \
-	&& go get github.com/docker/distribution/cmd/registry
+
+ENV GO111MODULE=auto
+ENV DISTRIBUTION_DIR /go/src/github.com/distribution/distribution
+ENV BUILDTAGS include_oss include_gcs
+
+ARG GOOS=linux
+ARG GOARCH=amd64
+ARG VERSION
+ARG REVISION=cc4627f
+
+RUN set -ex \
+	&& apk add --no-cache make git file \
+	&& git clone https://github.com/distribution/distribution $DISTRIBUTION_DIR
+WORKDIR $DISTRIBUTION_DIR
+COPY . $DISTRIBUTION_DIR
+RUN CGO_ENABLED=0 make PREFIX=/go clean binaries && file ./bin/registry | grep "statically linked"
 
 FROM alpine:latest
 
-COPY --from=registry /go/bin/registry /usr/local/bin/.
+COPY --from=registry /go/src/github.com/distribution/distribution/bin /usr/local/bin/.
 
 RUN apk add bash openssl
 
