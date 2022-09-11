@@ -3,7 +3,7 @@
 # Brian Dwyer - Intelligent Digital Services
 
 if [ -n "$B64CONFIG" ]; then
-    echo "$B64CONFIG" | base64 -d > /etc/docker/registry/config.yml
+    echo $B64CONFIG | base64 -d > /etc/docker/registry/config.yml
 fi
 
 if [ -n "$SETUP_SSL" ]; then
@@ -15,11 +15,13 @@ if [ -n "$SETUP_SSL" ]; then
     export REGISTRY_HTTP_TLS_KEY='/etc/docker/registry/ssl/key.pem'
 fi
 
-case "$1" in
-    *.yaml|*.yml) set -- registry serve "$@" ;;
-    serve|garbage-collect|help|-*) set -- registry "$@" ;;
-    #
-    # Other
-    #
-    *) exec "$@" ;;
-esac
+# case "$1" in
+#     *.yaml|*.yml) set -- registry serve "$@" ;;
+#     serve|garbage-collect|help|-*) set -- registry "$@" ;;
+#     #
+#     # Other
+#     #
+#     *) exec "$@" ;;
+# esac
+
+exec $@
